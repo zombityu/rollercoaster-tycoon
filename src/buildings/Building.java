@@ -1,23 +1,26 @@
+package buildings;
 
-public abstract class Building {
+public class Building {
   private String name;
   private int cost;
   private int profit;
-  private int level;
+  private String level;
   private int levelOfDevelopment;
 
   public Building() {
   }
 
-  public Building(String name, int cost, int profit, int level, int levelOfDevelopment) {
+  public Building(String level) {
+    this.level = level;
+  }
+
+  public Building(String name, int cost, int profit, String level, int levelOfDevelopment) {
     this.name = name;
     this.cost = cost;
     this.profit = profit;
     this.level = level;
     this.levelOfDevelopment = levelOfDevelopment;
   }
-
-  public abstract void build(Company company);
 
   public void development(Building building){
 
@@ -47,11 +50,11 @@ public abstract class Building {
     this.profit = profit;
   }
 
-  public int getLevel() {
+  public String getLevel() {
     return level;
   }
 
-  public void setLevel(int level) {
+  public void setLevel(String level) {
     this.level = level;
   }
 
