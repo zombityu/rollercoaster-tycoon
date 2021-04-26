@@ -17,4 +17,9 @@ public class Carousel extends Building{
       this.setLevel("hard");
     }
   }
+
+  @Override
+  public String toString() {
+    return this.getName()+" cost "+this.getCost()+", profit "+this.getProfit()+", level "+this.getLevelOfDevelopment();
+  }
 }

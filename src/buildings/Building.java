@@ -1,5 +1,7 @@
 package buildings;
 
+import java.util.Objects;
+
 public class Building {
   private String name;
   private int cost;
@@ -8,22 +10,12 @@ public class Building {
   private int levelOfDevelopment;
 
   public Building() {
+    this.setLevelOfDevelopment(1);
   }
 
   public Building(String level) {
     this.level = level;
-  }
-
-  public Building(String name, int cost, int profit, String level, int levelOfDevelopment) {
-    this.name = name;
-    this.cost = cost;
-    this.profit = profit;
-    this.level = level;
-    this.levelOfDevelopment = levelOfDevelopment;
-  }
-
-  public void development(Building building){
-
+    this.setLevelOfDevelopment(1);
   }
 
   public String getName() {

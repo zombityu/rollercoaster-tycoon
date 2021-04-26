@@ -2,7 +2,7 @@ package buildings;
 
 public class BoatingLake extends Building{
   public BoatingLake(String level) {
-    this.setName("Boating Lake");
+    this.setName("BoatingLake");
     if(level.equals("easy")){
       this.setCost(200000);
       this.setProfit(40);
@@ -16,5 +16,10 @@ public class BoatingLake extends Building{
       this.setProfit(10);
       this.setLevel("hard");
     }
+  }
+
+  @Override
+  public String toString() {
+    return this.getName()+" cost "+this.getCost()+", profit "+this.getProfit()+", level "+this.getLevelOfDevelopment();
   }
 }

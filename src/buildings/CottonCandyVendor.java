@@ -2,7 +2,7 @@ package buildings;
 
 public class CottonCandyVendor extends Building {
   public CottonCandyVendor(String level) {
-    this.setName("Cotton Candy Vendor");
+    this.setName("CottonCandyVendor");
     if(level.equals("easy")){
       this.setCost(50000);
       this.setProfit(10);
@@ -16,5 +16,10 @@ public class CottonCandyVendor extends Building {
       this.setProfit(2);
       this.setLevel("hard");
     }
+  }
+
+  @Override
+  public String toString() {
+    return "CottonCandyVendor cost "+this.getCost()+", profit "+this.getProfit()+", level "+this.getLevelOfDevelopment();
   }
 }
