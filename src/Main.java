@@ -19,7 +19,12 @@ public class Main {
     while(myComp.getMoney() > 0){
       try {
         myComp.build(candy);
-        myComp.development(candy);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+      try {
+        myComp.accident();
       } catch (Exception e) {
         e.printStackTrace();
       }

@@ -8,6 +8,9 @@ public class Building {
   private int profit;
   private String level;
   private int levelOfDevelopment;
+  private double probability;
+  private int accidentCost;
+  private int visitorDecrease;
 
   public Building() {
     this.setLevelOfDevelopment(1);
@@ -16,6 +19,30 @@ public class Building {
   public Building(String level) {
     this.level = level;
     this.setLevelOfDevelopment(1);
+  }
+
+  public int getAccidentCost() {
+    return accidentCost;
+  }
+
+  public void setAccidentCost(int accidentCost) {
+    this.accidentCost = accidentCost;
+  }
+
+  public int getVisitorDecrease() {
+    return visitorDecrease;
+  }
+
+  public void setVisitorDecrease(int visitorDecrease) {
+    this.visitorDecrease = visitorDecrease;
+  }
+
+  public double getProbability() {
+    return probability;
+  }
+
+  public void setProbability(double probability) {
+    this.probability = probability;
   }
 
   public String getName() {

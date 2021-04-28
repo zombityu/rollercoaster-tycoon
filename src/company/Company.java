@@ -1,9 +1,12 @@
 package company;
 
+import advertising.Advertising;
 import buildings.Building;
+import buildings.CottonCandyVendor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Company {
   private String name;
@@ -11,6 +14,7 @@ public class Company {
   private int visitor;
   private int money;
   private List<Building> buildings;
+  private static int days;
 
   public Company(String name, String level) {
     this.name = name;
@@ -18,6 +22,7 @@ public class Company {
     this.money = 150000;
     this.visitor = 10;
     buildings = new ArrayList<>();
+    this.days = 0;
   }
 
   public void build(Building building) throws Exception {
@@ -47,6 +52,41 @@ public class Company {
     } else {
 
     }
+  }
+
+  public void orderAdvertising(Advertising advertising){
+
+    this.setMoney(this.getMoney()- advertising.getCost());
+
+  }
+
+  public void accident() throws Exception{
+    Random rand = new Random();
+    double probability = rand.nextInt(100);
+    for (Building building :buildings) {
+      if(probability <= building.getProbability()){
+        this.setMoney(this.getMoney()-building.getAccidentCost());
+        this.setVisitor(this.getVisitor()*(1-building.getVisitorDecrease()));
+        if(this.getMoney() <= 0){
+          throw new Exception("Lost your money! Game Over");
+        }
+      }
+    }
+    if((this.level.equals("easy") && probability <= 1) || (this.level.equals("normal") && probability <= 1.5) ||
+            (this.level.equals("hard") && probability <= 2)){
+      int lost;
+      if(this.getMoney() <= 100000){
+        lost = 100000;
+      } else {
+        lost = (int)(this.getMoney()*0.5);
+      }
+      this.setMoney(this.getMoney()-lost);
+      System.out.println("The tax authority was fined");
+    }
+  }
+
+  public void endOfTheDay(){
+    this.days++;
   }
 
   public String getName() {
@@ -87,6 +127,10 @@ public class Company {
 
   public void setBuildings(List<Building> buildings) {
     this.buildings = buildings;
+  }
+
+  public int getDays() {
+    return days;
   }
 
   @Override
