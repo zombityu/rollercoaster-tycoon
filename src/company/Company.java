@@ -3,6 +3,9 @@ package company;
 import advertising.Advertising;
 import buildings.Building;
 import buildings.CottonCandyVendor;
+import employee.Accountant;
+import employee.Employee;
+import employee.Maintenance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,7 @@ public class Company {
   private int visitor;
   private int money;
   private List<Building> buildings;
+  private List<Employee> employees;
   private static int days;
 
   public Company(String name, String level) {
@@ -22,6 +26,7 @@ public class Company {
     this.money = 150000;
     this.visitor = 10;
     buildings = new ArrayList<>();
+    employees = new ArrayList<>();
     this.days = 0;
   }
 
@@ -63,8 +68,23 @@ public class Company {
   public void accident() throws Exception{
     Random rand = new Random();
     double probability = rand.nextInt(100);
+    double probabilityBuildings = 0;
+    Maintenance maintenance = null;
+    Accountant accountant = null;
+    
+    if(employees.size() > 0){
+      for (int i=0; i<employees.size(); i++){
+        if(employees.get(i) instanceof Maintenance ){
+          maintenance = (Maintenance) employees.get(i);
+        } else {
+          accountant = (Accountant) employees.get(i);
+        }
+      }
+      probabilityBuildings = probability - maintenance.getReduceProbability();
+    }
+    
     for (Building building :buildings) {
-      if(probability <= building.getProbability()){
+      if(probabilityBuildings <= building.getProbability()){
         this.setMoney(this.getMoney()-building.getAccidentCost());
         this.setVisitor(this.getVisitor()*(1-building.getVisitorDecrease()));
         if(this.getMoney() <= 0){
@@ -72,17 +92,28 @@ public class Company {
         }
       }
     }
-    if((this.level.equals("easy") && probability <= 1) || (this.level.equals("normal") && probability <= 1.5) ||
+    if((this.level.equals("easy") && probability <= 90) || (this.level.equals("normal") && probability <= 1.5) ||
             (this.level.equals("hard") && probability <= 2)){
       int lost;
-      if(this.getMoney() <= 100000){
+      if(this.getMoney() <= 200000){
         lost = 100000;
       } else {
         lost = (int)(this.getMoney()*0.5);
       }
+      if(accountant != null){
+        lost /= 2;
+      }
       this.setMoney(this.getMoney()-lost);
       System.out.println("The tax authority was fined");
     }
+  }
+
+  public void employ(Employee employee){
+    employees.add(employee);
+  }
+
+  public void fire(Employee employee){
+    employees.remove(employee);
   }
 
   public void endOfTheDay(){
@@ -131,6 +162,14 @@ public class Company {
 
   public int getDays() {
     return days;
+  }
+
+  public List<Employee> getEmployees() {
+    return employees;
+  }
+
+  public void setEmployees(List<Employee> employees) {
+    this.employees = employees;
   }
 
   @Override

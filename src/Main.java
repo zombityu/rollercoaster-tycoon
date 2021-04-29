@@ -2,6 +2,9 @@ import buildings.Building;
 import buildings.Carousel;
 import buildings.CottonCandyVendor;
 import company.Company;
+import employee.Accountant;
+import employee.Employee;
+import employee.Maintenance;
 
 import java.util.Scanner;
 
@@ -15,9 +18,13 @@ public class Main {
     String difficultyLevel = sc.nextLine();
     Company myComp = new Company(companyName,difficultyLevel);
     Building candy = new CottonCandyVendor(myComp.getLevel());
+    Employee maintance = new Maintenance(3);
+    Employee accountant = new Accountant();
 
     while(myComp.getMoney() > 0){
       try {
+        myComp.employ(maintance);
+        myComp.employ(accountant);
         myComp.build(candy);
       } catch (Exception e) {
         e.printStackTrace();
