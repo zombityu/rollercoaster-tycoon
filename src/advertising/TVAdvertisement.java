@@ -4,6 +4,7 @@ public class TVAdvertisement extends Advertising{
   public TVAdvertisement(String level) {
     this.setName("TVAdvertisement");
     this.setPeriod(8);
+    this.setPeriodCounter(this.getPeriod());
     if(level.equals("easy")){
       this.setCost(64000);
       this.setVisitorPerDay(12800);

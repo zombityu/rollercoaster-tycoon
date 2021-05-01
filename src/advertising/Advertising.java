@@ -4,14 +4,29 @@ public class Advertising {
   private String name;
   private int cost;
   private int visitorPerDay;
+  private int tempVisitorPerDay;
   private int period;
-  private String level;
+  private boolean isActive;
+  private int periodCounter;
 
   public Advertising() {
+    this.tempVisitorPerDay = getVisitorPerDay();
   }
 
-  public Advertising(String level) {
-    this.level = level;
+  public void regenerate(){
+    if(tempVisitorPerDay > visitorPerDay){
+      this.setVisitorPerDay((int)(this.getVisitorPerDay()*1.1));
+    } else {
+      this.setVisitorPerDay(this.getTempVisitorPerDay());
+    }
+  }
+
+  public int getTempVisitorPerDay() {
+    return tempVisitorPerDay;
+  }
+
+  public void setTempVisitorPerDay(int tempVisitorPerDay) {
+    this.tempVisitorPerDay = tempVisitorPerDay;
   }
 
   public int getCost() {
@@ -44,5 +59,21 @@ public class Advertising {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public boolean isActive() {
+    return isActive;
+  }
+
+  public int getPeriodCounter() {
+    return periodCounter;
+  }
+
+  public void setPeriodCounter(int periodCounter) {
+    this.periodCounter = periodCounter;
+  }
+
+  public void setActive(boolean active) {
+    isActive = active;
   }
 }

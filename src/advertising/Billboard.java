@@ -4,6 +4,7 @@ public class Billboard extends Advertising{
   public Billboard(String level) {
     this.setName("Billboard");
     this.setPeriod(4);
+    this.setPeriodCounter(this.getPeriod());
     if(level.equals("easy")){
       this.setCost(16000);
       this.setVisitorPerDay(800);

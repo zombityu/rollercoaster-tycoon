@@ -2,7 +2,6 @@ package company;
 
 import advertising.Advertising;
 import buildings.Building;
-import buildings.CottonCandyVendor;
 import employee.Accountant;
 import employee.Employee;
 import employee.Maintenance;
@@ -18,6 +17,7 @@ public class Company {
   private int money;
   private List<Building> buildings;
   private List<Employee> employees;
+  private List<Advertising> advertisings;
   private static int days;
 
   public Company(String name, String level) {
@@ -27,25 +27,31 @@ public class Company {
     this.visitor = 10;
     buildings = new ArrayList<>();
     employees = new ArrayList<>();
-    this.days = 0;
+    advertisings = new ArrayList<>();
+    days = 1;
   }
 
-  public void build(Building building) throws Exception {
+  public boolean build(Building building) {
     boolean isContain = false;
     if(buildings.size() > 0){
       for (Building games: buildings) {
-        if(games.getName().equals(building.getName())){
+        if (games.getName().equals(building.getName())) {
           isContain = true;
+          break;
         }
       }
       if (!isContain) {
         this.setMoney(this.getMoney()-building.getCost());
         buildings.add(building);
+      } else {
+        return false;
       }
     } else {
       this.setMoney(this.getMoney()-building.getCost());
       buildings.add(building);
     }
+
+    return true;
   }
 
   public void development(Building building){
@@ -55,41 +61,38 @@ public class Company {
       building.setProfit(building.getProfit()+(building.getProfit()/building.getLevelOfDevelopment()));
       building.setLevelOfDevelopment(building.getLevelOfDevelopment()+1);
     } else {
-
+      System.out.println("You reached the maximum development");
     }
   }
 
   public void orderAdvertising(Advertising advertising){
-
     this.setMoney(this.getMoney()- advertising.getCost());
-
+    advertising.setActive(true);
+    advertisings.add(advertising);
   }
 
-  public void accident() throws Exception{
+  public void accident(){
     Random rand = new Random();
     double probability = rand.nextInt(100);
     double probabilityBuildings = 0;
-    Maintenance maintenance = null;
+    Maintenance maintenance;
     Accountant accountant = null;
     
     if(employees.size() > 0){
-      for (int i=0; i<employees.size(); i++){
-        if(employees.get(i) instanceof Maintenance ){
-          maintenance = (Maintenance) employees.get(i);
+      for (Employee employee : employees) {
+        if (employee instanceof Maintenance) {
+          maintenance = (Maintenance) employee;
+          probabilityBuildings = probability - maintenance.getReduceProbability();
         } else {
-          accountant = (Accountant) employees.get(i);
+          accountant = (Accountant) employee;
         }
       }
-      probabilityBuildings = probability - maintenance.getReduceProbability();
     }
     
     for (Building building :buildings) {
       if(probabilityBuildings <= building.getProbability()){
         this.setMoney(this.getMoney()-building.getAccidentCost());
         this.setVisitor(this.getVisitor()*(1-building.getVisitorDecrease()));
-        if(this.getMoney() <= 0){
-          throw new Exception("Lost your money! Game Over");
-        }
       }
     }
     if((this.level.equals("easy") && probability <= 90) || (this.level.equals("normal") && probability <= 1.5) ||
@@ -106,6 +109,9 @@ public class Company {
       this.setMoney(this.getMoney()-lost);
       System.out.println("The tax authority was fined");
     }
+    if(this.getMoney() <= 0){
+      System.out.println("Lost your money! Game Over");
+    }
   }
 
   public void employ(Employee employee){
@@ -117,7 +123,32 @@ public class Company {
   }
 
   public void endOfTheDay(){
-    this.days++;
+    int profit = 0;
+    int visitors = 0;
+    for (Building building:buildings) {
+      profit += (building.getProfit()*this.getVisitor());
+    }
+
+    for (Advertising advertising: advertisings) {
+      if(advertising.isActive()){
+        visitors += advertising.getVisitorPerDay();
+        advertising.setVisitorPerDay((int)(advertising.getVisitorPerDay()*0.9));
+        advertising.setPeriodCounter(advertising.getPeriodCounter()-1);
+      }
+      if(advertising.getPeriod() == 0){
+        advertising.setActive(false);
+        advertising.setPeriodCounter(advertising.getPeriod());
+      }
+      if(!advertising.isActive()){
+        advertising.regenerate();
+      }
+    }
+
+    accident();
+
+    this.setMoney(this.getMoney()+profit);
+    this.setVisitor(this.getVisitor()+visitors);
+    days++;
   }
 
   public String getName() {

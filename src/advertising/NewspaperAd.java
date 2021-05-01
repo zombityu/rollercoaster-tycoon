@@ -4,6 +4,7 @@ public class NewspaperAd extends Advertising{
   public NewspaperAd(String level) {
     this.setName("Newspaper Ad");
     this.setPeriod(2);
+    this.setPeriodCounter(this.getPeriod());
     if(level.equals("easy")){
       this.setCost(4000);
       this.setVisitorPerDay(200);

@@ -4,6 +4,7 @@ public class Flyer extends Advertising{
   public Flyer(String level) {
     this.setName("Flyer");
     this.setPeriod(1);
+    this.setPeriodCounter(this.getPeriod());
     if(level.equals("easy")){
       this.setCost(1000);
       this.setVisitorPerDay(50);
@@ -14,5 +15,6 @@ public class Flyer extends Advertising{
       this.setCost(4000);
       this.setVisitorPerDay(13);
     }
+    this.setTempVisitorPerDay(this.getVisitorPerDay());
   }
 }

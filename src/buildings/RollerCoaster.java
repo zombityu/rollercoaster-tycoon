@@ -2,6 +2,7 @@ package buildings;
 
 public class RollerCoaster extends Building{
   public RollerCoaster(String level) {
+    this.setName("RollerCoaster");
     this.setAccidentCost(100000);
     this.setVisitorDecrease(20);
     if(level.equals("easy")){

@@ -4,6 +4,7 @@ public class AdSense extends Advertising{
   public AdSense(String level) {
     this.setName("AdSense");
     this.setPeriod(16);
+    this.setPeriodCounter(this.getPeriod());
     if(level.equals("easy")){
       this.setCost(256000);
       this.setVisitorPerDay(12800);
