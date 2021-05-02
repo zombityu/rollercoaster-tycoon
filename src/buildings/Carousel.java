@@ -5,6 +5,7 @@ public class Carousel extends Building{
     this.setName("Carousel");
     this.setAccidentCost(25000);
     this.setVisitorDecrease(5);
+    this.setAccident("The carousel falls apart!");
     if(level.equals("easy")){
       this.setCost(100000);
       this.setProfit(20);

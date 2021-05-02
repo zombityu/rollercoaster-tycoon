@@ -1,7 +1,5 @@
 package buildings;
 
-import java.util.Objects;
-
 public class Building {
   private String name;
   private int cost;
@@ -11,13 +9,9 @@ public class Building {
   private double probability;
   private int accidentCost;
   private int visitorDecrease;
+  private String accident;
 
   public Building() {
-    this.setLevelOfDevelopment(1);
-  }
-
-  public Building(String level) {
-    this.level = level;
     this.setLevelOfDevelopment(1);
   }
 
@@ -87,5 +81,13 @@ public class Building {
     } else {
       System.out.println("You have reached the maximum level of development.");
     }
+  }
+
+  public String getAccident() {
+    return accident;
+  }
+
+  public void setAccident(String accident) {
+    this.accident = accident;
   }
 }

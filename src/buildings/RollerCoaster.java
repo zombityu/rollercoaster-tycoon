@@ -5,6 +5,7 @@ public class RollerCoaster extends Building{
     this.setName("RollerCoaster");
     this.setAccidentCost(100000);
     this.setVisitorDecrease(20);
+    this.setAccident("The roller coaster derails.");
     if(level.equals("easy")){
       this.setCost(800000);
       this.setProfit(160);

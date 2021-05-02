@@ -5,6 +5,7 @@ public class BoatingLake extends Building{
     this.setName("BoatingLake");
     this.setAccidentCost(50000);
     this.setVisitorDecrease(10);
+    this.setAccident("The boat sinks!");
     if(level.equals("easy")){
       this.setCost(200000);
       this.setProfit(40);

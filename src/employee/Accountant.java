@@ -5,6 +5,7 @@ public class Accountant extends Employee{
   private final int fee = 2;
 
   public Accountant() {
+    this.setName("Accountant");
   }
 
   public int getNumbersOfEmployee() {

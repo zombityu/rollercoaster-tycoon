@@ -14,7 +14,7 @@ public class Advertising {
   }
 
   public void regenerate(){
-    if(tempVisitorPerDay > visitorPerDay){
+    if(tempVisitorPerDay > this.getVisitorPerDay()*1.1){
       this.setVisitorPerDay((int)(this.getVisitorPerDay()*1.1));
     } else {
       this.setVisitorPerDay(this.getTempVisitorPerDay());
@@ -75,5 +75,10 @@ public class Advertising {
 
   public void setActive(boolean active) {
     isActive = active;
+  }
+
+  @Override
+  public String toString() {
+    return this.name + " cost: " + this.cost + ", visitor/day: " + this.visitorPerDay + ", period: " + this.period + " day(s)";
   }
 }

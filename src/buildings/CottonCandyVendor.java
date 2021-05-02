@@ -8,6 +8,7 @@ public class CottonCandyVendor extends Building {
     this.setName("CottonCandyVendor");
     this.setAccidentCost(1000);
     this.setVisitorDecrease(0);
+    this.setAccident("They give bad-tasting cotton candy!");
     if(level.equals("easy")){
       this.setCost(50000);
       this.setProfit(10);

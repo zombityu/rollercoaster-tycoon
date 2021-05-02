@@ -10,6 +10,7 @@ public class Maintenance extends Employee{
   int probability;
 
   public Maintenance(int numbersOfEmployee) {
+    this.setName("Maintenance");
     rand = new Random();
     probability = rand.nextInt(3)+1;
     setNumbersOfEmployee(numbersOfEmployee);
